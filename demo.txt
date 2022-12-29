@@ -6,3 +6,4 @@ tsc --init
 npm i ts-node-dev -D
 npm install typeorm --save
 npm install reflect-metadata --save
+//strictPropertyInitialization
