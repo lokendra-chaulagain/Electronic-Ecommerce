@@ -1,18 +1,18 @@
 import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
-export class User extends BaseEntity {
+export class Category extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
   @Column()
-  firstName!: string;
+  name!: string;
 
   @Column()
-  lastName!: string;
+  description!: string;
 
-  @Column({ default: true })
-  active!: boolean;
+  @Column()
+  image!: string;
 
   @CreateDateColumn()
   createdAt!: Date;
