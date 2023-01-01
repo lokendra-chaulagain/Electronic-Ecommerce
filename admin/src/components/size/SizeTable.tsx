@@ -2,8 +2,12 @@ import React from "react";
 import TableHeading from "../TableHeading";
 import AddSizeDialog from "./AddSizeDialog";
 import { MdDelete } from "react-icons/md";
+import { useDeleteSizeMutation, useGetSizesQuery } from "../../features/api/apiSlice";
 
-export default function SizeTable({ deleteSize, sizes,setIsUpdated }: any) {
+export default function SizeTable({ setIsUpdated }: any) {
+  const { data: sizes } = useGetSizesQuery();
+  console.log(sizes);
+  const [deleteSize] = useDeleteSizeMutation();
   return (
     <>
       <div className="d-flex align-items-center  ">
@@ -33,7 +37,7 @@ export default function SizeTable({ deleteSize, sizes,setIsUpdated }: any) {
                     <div className="d-flex ">
                       <MdDelete
                         className="delete_button_icon"
-                        onClick={() => deleteSize(size._id)}
+                        onClick={() => deleteSize(size.id)}
                         aria-label="delete"
                       />
                     </div>

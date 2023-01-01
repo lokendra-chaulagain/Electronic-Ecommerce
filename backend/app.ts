@@ -5,6 +5,8 @@ import productRoutes from "./routes/product.routes";
 import categoryRoutes from "./routes/category.routes";
 import colorRoutes from "./routes/color.routes";
 import sizeRoutes from "./routes/size.routes";
+import contactRoutes from "./routes/contact.routes";
+import bannerRoutes from "./routes/banner.routes";
 
 const app = express();
 
@@ -18,5 +20,7 @@ app.use("/api/product", productRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/color", colorRoutes);
 app.use("/api/size", sizeRoutes);
+app.use("/api/contact", contactRoutes);
+app.use("/api/banner", bannerRoutes);
 
 export default app;

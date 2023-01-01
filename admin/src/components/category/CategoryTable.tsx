@@ -14,7 +14,7 @@ export default function CategoryTable({ setIsUpdated }: any) {
     <>
       <div className="d-flex align-items-center  ">
         <TableHeading heading={"All Categories"} />
-        <AddCategoryDialog setIsUpdated={setIsUpdated} />
+        <AddCategoryDialog />
       </div>
 
       <div className="customCard mt-2 mb-5 ">

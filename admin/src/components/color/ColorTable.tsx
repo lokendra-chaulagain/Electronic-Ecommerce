@@ -2,13 +2,16 @@ import React from "react";
 import TableHeading from "../TableHeading";
 import AddColorDialog from "./AddColorDialog";
 import { MdDelete } from "react-icons/md";
+import { useDeleteColorMutation, useGetColorsQuery } from "../../features/api/apiSlice";
 
-export default function ColorTable({ deleteColor, colors, setIsUpdated }: any) {
+export default function ColorTable() {
+  const { data: colors } = useGetColorsQuery();
+  const [deleteColor] = useDeleteColorMutation();
   return (
     <>
       <div className="d-flex align-items-center  ">
         <TableHeading heading={"All Colors"} />
-        <AddColorDialog setIsUpdated={setIsUpdated} />
+        <AddColorDialog />
       </div>
 
       <div className="customCard mt-2 mb-5 ">
@@ -32,7 +35,7 @@ export default function ColorTable({ deleteColor, colors, setIsUpdated }: any) {
                   <td>
                     <MdDelete
                       className="delete_button_icon"
-                      onClick={() => deleteColor(color._id)}
+                      onClick={() => deleteColor(color.id)}
                       aria-label="delete"
                     />
                   </td>

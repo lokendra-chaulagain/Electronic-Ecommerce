@@ -5,14 +5,11 @@ import { useForm } from "react-hook-form";
 import { MiscellaneousContext } from "../../../context/MiscellaneousContext";
 import ImageUploading from "react-images-uploading";
 import Image from "next/image";
-import { useAddNewCategoryMutation } from "../../features/api/apiSlice"
+import { useAddNewCategoryMutation } from "../../features/api/apiSlice";
 
-export default function AddCategoryDialog({ setIsUpdated }) {
+export default function AddCategoryDialog() {
   const { handleClickOpen, handleClose, open, createSuccess, somethingWentWrong } = useContext(MiscellaneousContext);
-  const [addNewCategory] = useAddNewCategoryMutation()
-
-
-
+  const [addNewCategory] = useAddNewCategoryMutation();
 
   const {
     register,
@@ -50,10 +47,8 @@ export default function AddCategoryDialog({ setIsUpdated }) {
   //   }
   // };
 
-
-
   const createCategory = async () => {
-    addNewCategory(handleAllField)
+    addNewCategory(handleAllField);
   };
 
   return (
@@ -143,7 +138,6 @@ export default function AddCategoryDialog({ setIsUpdated }) {
             </ImageUploading>
           </div> */}
 
-
           <div className="row mb-3 ">
             <label
               htmlFor="image"
@@ -157,9 +151,6 @@ export default function AddCategoryDialog({ setIsUpdated }) {
             />
             {errors.image && <p className="form_hook_error">{`${errors.image.message}`}</p>}
           </div>
-
-
-
 
           <div className="row mb-3 ">
             <label

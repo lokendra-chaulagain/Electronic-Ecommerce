@@ -3,8 +3,12 @@ import Link from "next/link";
 import { format } from "timeago.js";
 import { IoMdEye } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
+import { useDeleteContactMutation, useGetContactsQuery } from "../../features/api/apiSlice";
 
-export default function MailTable({ mails, removeMail }: any) {
+export default function MailTable() {
+  const { data: mails } = useGetContactsQuery();
+  const [deleteContact] = useDeleteContactMutation();
+
   return (
     <>
       <div className="customCard mt-2 ">
@@ -41,7 +45,7 @@ export default function MailTable({ mails, removeMail }: any) {
 
                       <MdDelete
                         className="delete_button_icon"
-                        onClick={() => removeMail(mail._id)}
+                        onClick={() => deleteContact(mail.id)}
                         aria-label="delete"
                       />
                     </div>

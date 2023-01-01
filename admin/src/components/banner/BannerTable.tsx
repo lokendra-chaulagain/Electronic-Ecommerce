@@ -5,13 +5,17 @@ import { AiTwotoneEdit } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import AddBannerDialog from "./AddBannerDialog";
 import Image from "next/image";
+import { useDeleteBannerMutation, useGetBannersQuery } from "../../features/api/apiSlice";
 
-export default function BannerTable({ banners, removeBanner }: any) {
+export default function BannerTable() {
+  const { data: banners } = useGetBannersQuery();
+  const [deleteBanner] = useDeleteBannerMutation();
+
   return (
     <>
       <div className="d-flex align-items-center  ">
         <TableHeading heading={"All Banners"} />
-        <AddBannerDialog  />
+        {/* <AddBannerDialog /> */}
       </div>
 
       <div className="customCard mt-2 mb-5 ">
@@ -64,7 +68,7 @@ export default function BannerTable({ banners, removeBanner }: any) {
                     <div>
                       <MdDelete
                         className="delete_button_icon"
-                        onClick={() => removeBanner(banner._id)}
+                        onClick={() => deleteBanner(banner.id)}
                         aria-label="delete"
                       />
                     </div>

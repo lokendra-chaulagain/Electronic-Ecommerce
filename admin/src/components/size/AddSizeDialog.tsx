@@ -3,9 +3,12 @@ import { Grid, Dialog, Button } from "@mui/material";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { MiscellaneousContext } from "../../../context/MiscellaneousContext";
+import { useAddNewSizeMutation, useDeleteSizeMutation, useGetSizesQuery } from "../../features/api/apiSlice";
 
 export default function AddSizeDialog({ setIsUpdated }: any) {
   const { createSuccess, somethingWentWrong } = useContext(MiscellaneousContext);
+
+  const [addNewSize] = useAddNewSizeMutation();
 
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -25,18 +28,7 @@ export default function AddSizeDialog({ setIsUpdated }: any) {
   const handleAllField = watch();
 
   const createColor = async () => {
-    try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/size`, handleAllField);
-      // 
-      setIsUpdated(5);
-      handleClose();
-      createSuccess();
-      reset();
-      console.log("Form has been submitted");
-    } catch (error) {
-      console.log(error);
-      somethingWentWrong();
-    }
+    addNewSize(handleAllField);
   };
 
   return (
