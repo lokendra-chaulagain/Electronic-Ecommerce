@@ -4,15 +4,10 @@ import CardLarge from "../components/dashboard/CardLarge";
 import CardMedium from "../components/dashboard/CardMedium";
 import CardSmall from "../components/dashboard/CardSmall";
 import Header from "../components/Header";
-import { useGetCategoriesQuery } from "../api/apiSlice";
 
 export default function Home() {
-  const { data: colors, isLoading, isError, } = useGetCategoriesQuery();
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error...</div>;
 
-  console.log(colors);
   return (
     <Stack spacing={2}>
       <Header />

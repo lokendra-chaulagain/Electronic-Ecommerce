@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import { MiscellaneousContext } from "../../../context/MiscellaneousContext";
 import Image from "next/image";
 import ImageUploading from "react-images-uploading";
-import { createBanner } from "../../app/banner/bannerAction";
-import { useAppDispatch } from "../../app/hooks";
+// import { createBanner } from "../../app/banner/bannerAction";
+// import { useAppDispatch } from "../../app/hooks";
 
 export default function AddBannerDialog() {
   const dispatch = useAppDispatch();

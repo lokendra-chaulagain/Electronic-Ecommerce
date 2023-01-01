@@ -11,6 +11,9 @@ import { MiscellaneousContextProvider } from "../../context/MiscellaneousContext
 import LoginBox from "../components/LoginBox";
 import { ApiProvider } from "@reduxjs/toolkit/query/react";
 import { apiSlice } from "../features/api/apiSlice";
+import { sizeSlice } from "../features/api/sizeSlice";
+import { Provider } from "react-redux";
+import { store } from "../app/store";
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -18,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <ApiProvider api={apiSlice}>
+    <Provider store={store}>
       <MiscellaneousContextProvider>
         <div className="customBg h100">
           <Topbar />
@@ -45,7 +48,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         pauseOnHover
         theme="dark"
       />
-    </ApiProvider>
+    </Provider>
   );
 }
 
