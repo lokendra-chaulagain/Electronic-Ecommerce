@@ -1,13 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Grid, Dialog, Button } from "@mui/material";
-import axios from "axios";
 import { useForm } from "react-hook-form";
-import { MiscellaneousContext } from "../../../context/MiscellaneousContext";
-import { useAddNewSizeMutation, useDeleteSizeMutation, useGetSizesQuery } from "../../features/api/apiSlice";
+import { useAddNewSizeMutation } from "../../features/api/apiSlice";
 
-export default function AddSizeDialog({ setIsUpdated }: any) {
-  const { createSuccess, somethingWentWrong } = useContext(MiscellaneousContext);
-
+export default function AddSizeDialog() {
   const [addNewSize] = useAddNewSizeMutation();
 
   const [open, setOpen] = useState(false);
@@ -29,6 +25,8 @@ export default function AddSizeDialog({ setIsUpdated }: any) {
 
   const createColor = async () => {
     addNewSize(handleAllField);
+    reset();
+    handleClose();
   };
 
   return (

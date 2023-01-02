@@ -1,13 +1,17 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { Button } from "@mui/material";
 import { MiscellaneousContext } from "../../../context/MiscellaneousContext";
-import axios from "axios";
-import Image from "next/image";
-import ImageUploading from "react-images-uploading";
+// import Image from "next/image";
+// import ImageUploading from "react-images-uploading";
 import { useForm } from "react-hook-form";
+import { useAddNewProductMutation, useGetSizesQuery, useGetColorsQuery, useGetCategoriesQuery } from "../../features/api/apiSlice";
+import { Category } from "../../interfaces/global";
 
-export default function AddProductTable({ categories, colors, sizes, setIsUpdated }) {
-  const { handleClose, createSuccess, somethingWentWrong } = useContext(MiscellaneousContext);
+export default function AddProductTable() {
+  const [addNewProduct] = useAddNewProductMutation();
+  const { data: sizes } = useGetSizesQuery();
+  const { data: categories } = useGetCategoriesQuery();
+  const { data: colors } = useGetColorsQuery();
 
   const {
     register,
@@ -18,37 +22,42 @@ export default function AddProductTable({ categories, colors, sizes, setIsUpdate
   } = useForm();
   const handleAllField = watch();
 
-  const [images, setImages] = useState();
-  const onChange = (imageList) => {
-    setImages(imageList);
-  };
-
   const createProduct = async () => {
-    const formData = new FormData();
-    formData.append("name", handleAllField.name);
-    formData.append("color", handleAllField.color);
-    formData.append("size", handleAllField.size);
-    formData.append("category", handleAllField.category);
-    formData.append("description", handleAllField.description);
-    formData.append("featured", handleAllField.featured);
-    formData.append("topSelling", handleAllField.topSelling);
-    if (images) {
-      formData.append("thumbnail", images[0].file, images[0].file.name);
-    }
-    try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/product`, formData);
-
-      // 
-      setIsUpdated(1);
-      handleClose();
-      createSuccess();
-      reset();
-      console.log("Form has been submitted");
-    } catch (error) {
-      console.log(error);
-      somethingWentWrong();
-    }
+    addNewProduct(handleAllField);
+    reset();
   };
+
+  // const [images, setImages] = useState();
+  // const onChange = (imageList) => {
+  //   setImages(imageList);
+  // };
+
+  // const createProduct = async () => {
+  //   const formData = new FormData();
+  //   formData.append("name", handleAllField.name);
+  //   formData.append("color", handleAllField.color);
+  //   formData.append("size", handleAllField.size);
+  //   formData.append("category", handleAllField.category);
+  //   formData.append("description", handleAllField.description);
+  //   formData.append("featured", handleAllField.featured);
+  //   formData.append("topSelling", handleAllField.topSelling);
+  //   if (images) {
+  //     formData.append("thumbnail", images[0].file, images[0].file.name);
+  //   }
+  //   try {
+  //     const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/product`, formData);
+
+  //     //
+  //     setIsUpdated(1);
+  //     handleClose();
+  //     createSuccess();
+  //     reset();
+  //     console.log("Form has been submitted");
+  //   } catch (error) {
+  //     console.log(error);
+  //     somethingWentWrong();
+  //   }
+  // };
 
   return (
     <>
@@ -73,7 +82,21 @@ export default function AddProductTable({ categories, colors, sizes, setIsUpdate
             {errors.name && <p className="form_hook_error">{`${errors.name.message}`}</p>}
           </div>
 
-          <div className="row">
+          <div className="row ">
+            <label
+              htmlFor="image"
+              className="form-label mt-3 p_zero_first_cap h6 ">
+              image
+            </label>
+            <input
+              className=" input_field_style form-control form-control-lg px-2  border-0  rounded-0"
+              {...register("image", { required: "image is required" })}
+              placeholder="image"
+            />
+            {errors.image && <p className="form_hook_error">{`${errors.image.message}`}</p>}
+          </div>
+
+          {/* <div className="row">
             <label
               htmlFor="formFile"
               className="form-label px-0 mt-2 h6 ">
@@ -90,7 +113,6 @@ export default function AddProductTable({ categories, colors, sizes, setIsUpdate
                   <button
                     type="button"
                     className=" input_field_style form-control form-control-lg mb-0  border-0  rounded-0"
-                    // style={isDragging ? { color: "red" } : null}
                     onClick={onImageUpload}
                     {...dragProps}>
                     Click or Drop here
@@ -122,7 +144,7 @@ export default function AddProductTable({ categories, colors, sizes, setIsUpdate
                 </div>
               )}
             </ImageUploading>
-          </div>
+          </div> */}
 
           <div className="row ">
             <label
@@ -205,10 +227,10 @@ export default function AddProductTable({ categories, colors, sizes, setIsUpdate
                 Select Category
               </option>
               {categories &&
-                categories.map((category, index) => (
+                categories.map((category: Category, index: number) => (
                   <option
                     key={index}
-                    value={category._id}>
+                    value={category.id}>
                     {category.name}
                   </option>
                 ))}

@@ -4,15 +4,15 @@ import AddSizeDialog from "./AddSizeDialog";
 import { MdDelete } from "react-icons/md";
 import { useDeleteSizeMutation, useGetSizesQuery } from "../../features/api/apiSlice";
 
-export default function SizeTable({ setIsUpdated }: any) {
+export default function SizeTable() {
   const { data: sizes } = useGetSizesQuery();
-  console.log(sizes);
   const [deleteSize] = useDeleteSizeMutation();
+
   return (
     <>
       <div className="d-flex align-items-center  ">
         <TableHeading heading={"All Sizes"} />
-        <AddSizeDialog setIsUpdated={setIsUpdated} />
+        <AddSizeDialog />
       </div>
 
       <div className="customCard mt-2 mb-5 ">

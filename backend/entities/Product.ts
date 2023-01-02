@@ -15,7 +15,7 @@ export class Product extends BaseEntity {
   image!: string;
 
   @Column()
-  category!: string;
+  category!: number;
 
   @Column({ default: false, type: Boolean })
   isFeatured!: boolean;

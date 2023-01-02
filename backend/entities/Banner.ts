@@ -13,4 +13,7 @@ export class Banner extends BaseEntity {
 
   @Column()
   image!: string;
+
+  @Column({ default: false, type: Boolean })
+  status!: boolean;
 }

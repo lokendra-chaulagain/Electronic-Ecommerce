@@ -7,6 +7,7 @@ import { useDeleteColorMutation, useGetColorsQuery } from "../../features/api/ap
 export default function ColorTable() {
   const { data: colors } = useGetColorsQuery();
   const [deleteColor] = useDeleteColorMutation();
+  
   return (
     <>
       <div className="d-flex align-items-center  ">

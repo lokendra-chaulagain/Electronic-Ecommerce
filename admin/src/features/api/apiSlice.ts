@@ -1,13 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Banner, Category, Color, Contact } from "../../interfaces/global";
-import { Size } from "../../interfaces/global";
+import { Banner, Category, Color, Contact, Size, Product } from "../../interfaces/global";
 
 export const apiSlice = createApi({
   reducerPath: "apiSlice",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:4000/api",
   }),
-  tagTypes: ["Category", "Size", "Color", "Contact", "Banner"],
+  tagTypes: ["Category", "Size", "Color", "Contact", "Banner", "Product"],
 
   endpoints: (builder) => ({
     getCategories: builder.query<Category, void>({
@@ -50,6 +49,45 @@ export const apiSlice = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["Category"],
+    }),
+
+    //Product-------------------------------------->
+    getProducts: builder.query<Product[], void>({
+      query: () => "/product",
+      transformResponse: (res: Product[]) => res.sort((a: Product, b: Product) => b.id - a.id),
+      providesTags: ["Product"],
+    }),
+
+    addNewProduct: builder.mutation({
+      query: (newProduct) => ({
+        url: "/product",
+        method: "POST",
+        body: newProduct,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["Product"],
+    }),
+
+    updateProduct: builder.mutation({
+      query: (updatedProduct) => {
+        return {
+          url: `/product/${updatedProduct.id}`,
+          method: "PATCH",
+          body: updatedProduct,
+        };
+      },
+      invalidatesTags: ["Product"],
+    }),
+
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: `/product/${id}`,
+        method: "DELETE",
+        body: id,
+      }),
+      invalidatesTags: ["Product"],
     }),
 
     // Size------------------------------->
@@ -216,6 +254,7 @@ export const {
   useAddNewCategoryMutation,
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,
+  
   useGetSizesQuery,
   useAddNewSizeMutation,
   useUpdateSizeMutation,
@@ -232,4 +271,9 @@ export const {
   useAddNewColorMutation,
   useUpdateColorMutation,
   useDeleteColorMutation,
+
+  useGetProductsQuery,
+  useAddNewProductMutation,
+  useUpdateProductMutation,
+  useDeleteProductMutation,
 } = apiSlice;

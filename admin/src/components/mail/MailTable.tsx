@@ -30,7 +30,7 @@ export default function MailTable() {
                   key={index}
                   className="customPrimaryTxtColor custom_table_hover ">
                   <th scope="row">{index + 1}</th>
-                  <td>{mail.name}</td>
+                  <td>{mail.fullName}</td>
                   <td>{mail.email}</td>
                   <td>{mail.message}</td>
                   <td>{format(mail.createdAt)}</td>

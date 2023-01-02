@@ -1,10 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Grid, Dialog, Button } from "@mui/material";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { MiscellaneousContext } from "../../../context/MiscellaneousContext";
-import ImageUploading from "react-images-uploading";
-import Image from "next/image";
 import { useAddNewCategoryMutation } from "../../features/api/apiSlice";
 
 export default function AddCategoryDialog() {
@@ -18,37 +15,11 @@ export default function AddCategoryDialog() {
     formState: { errors },
     reset,
   } = useForm();
-  const handleAllField = watch();
-
-  // const [images, setImages] = useState();
-  // const onChange = (imageList) => {
-  //   setImages(imageList);
-  // };
-
-  // const createCategory = async () => {
-  //   const formData = new FormData();
-  //   formData.append("name", handleAllField.name);
-  //   formData.append("description", handleAllField.description);
-  //   if (images) {
-  //     formData.append("thumbnail", images[0].file, images[0].file.name);
-  //   }
-
-  //   try {
-  //     const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/category`, formData);
-  //     setIsUpdated(5);
-  //     handleClose();
-  //     createSuccess();
-  //     reset();
-  //     console.log(res);
-  //     console.log("Form has been submitted");
-  //   } catch (error) {
-  //     console.log(error);
-  //     somethingWentWrong();
-  //   }
-  // };
+  const handleAllField: any = watch();
 
   const createCategory = async () => {
     addNewCategory(handleAllField);
+    reset();
   };
 
   return (

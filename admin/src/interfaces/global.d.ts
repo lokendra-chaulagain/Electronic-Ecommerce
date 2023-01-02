@@ -3,13 +3,13 @@ export interface Size {
   name: string;
 }
 
-
 export interface Color {
   id: number;
   name: string;
 }
 
 export interface Category {
+  [x: string]: any;
   id: number;
   name: string;
   image: string;
@@ -21,6 +21,8 @@ export interface Contact {
   fullName: string;
   email: string;
   message: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface Banner {
@@ -28,4 +30,17 @@ export interface Banner {
   title: string;
   description: string;
   image: string;
+  status: boolean;
+}
+
+export interface Product {
+  id: number;
+  name: string;
+  image: string;
+  description: string;
+  category: number;
+  isFeatured: boolean;
+  isTopSelling: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }

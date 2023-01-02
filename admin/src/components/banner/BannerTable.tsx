@@ -15,7 +15,7 @@ export default function BannerTable() {
     <>
       <div className="d-flex align-items-center  ">
         <TableHeading heading={"All Banners"} />
-        {/* <AddBannerDialog /> */}
+        <AddBannerDialog />
       </div>
 
       <div className="customCard mt-2 mb-5 ">

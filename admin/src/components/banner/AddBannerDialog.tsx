@@ -1,14 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Grid, Dialog, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { MiscellaneousContext } from "../../../context/MiscellaneousContext";
 import Image from "next/image";
-import ImageUploading from "react-images-uploading";
-// import { createBanner } from "../../app/banner/bannerAction";
-// import { useAppDispatch } from "../../app/hooks";
+import { useAddNewBannerMutation } from "../../features/api/apiSlice";
 
 export default function AddBannerDialog() {
-  const dispatch = useAppDispatch();
+  const { handleClickOpen, handleClose, open } = useContext(MiscellaneousContext);
+  const [addNewBanner] = useAddNewBannerMutation();
+
   const {
     register,
     handleSubmit,
@@ -17,17 +17,10 @@ export default function AddBannerDialog() {
     reset,
   } = useForm();
   let handleAllField = watch();
-  console.log(handleAllField);
 
-  const createBannerFunc = () => {
-    dispatch(createBanner(handleAllField));
-  };
-
-  const { handleClickOpen, handleClose, open } = useContext(MiscellaneousContext);
-
-  const [images, setImages] = useState();
-  const onChange = (imageList) => {
-    setImages(imageList);
+  const createBanner = () => {
+    addNewBanner(handleAllField);
+    reset();
   };
 
   return (
@@ -48,11 +41,11 @@ export default function AddBannerDialog() {
         onClose={handleClose}>
         <form
           className="customCard p-3 overflow_hidden"
-          onSubmit={handleSubmit(createBannerFunc)}>
+          onSubmit={handleSubmit(createBanner)}>
           <h4>Create New Banner </h4>
           <p className="customPrimaryTxtColor">To subscribe to this website, please enter your email address here. We will send updates occasionally.</p>
 
-          <div className="row">
+          {/* <div className="row">
             <label
               htmlFor="formFile"
               className="form-label px-0 mt-2 h6 ">
@@ -69,7 +62,6 @@ export default function AddBannerDialog() {
                   <button
                     type="button"
                     className=" input_field_style form-control form-control-lg mb-0  border-0  rounded-0"
-                    // style={isDragging ? { color: "red" } : null}
                     onClick={onImageUpload}
                     {...dragProps}>
                     Click or Drop here
@@ -101,7 +93,7 @@ export default function AddBannerDialog() {
                 </div>
               )}
             </ImageUploading>
-          </div>
+          </div> */}
 
           <div className="row">
             <label
@@ -131,9 +123,23 @@ export default function AddBannerDialog() {
             {errors.description && <p className="form_hook_error">{`${errors.description.message}`}</p>}
           </div>
 
-          {/* <div className="row">
+          <div className="row ">
             <label
-              htmlFor="description"
+              htmlFor="image"
+              className="form-label px-0 mt-2 h6   ">
+              image
+            </label>
+            <input
+              className=" input_field_style form-control form-control-lg mb-0  border-0  rounded-0"
+              {...register("image", { required: "image is required" })}
+              placeholder="image"
+            />
+            {errors.image && <p className="form_hook_error">{`${errors.image.message}`}</p>}
+          </div>
+
+          <div className="row">
+            <label
+              htmlFor="status"
               className="form-label px-0 mt-2 h6 ">
               Active Status
             </label>
@@ -146,7 +152,7 @@ export default function AddBannerDialog() {
               <option value="1">Active</option>
             </select>
             {errors.status && <p className="form_hook_error">{`${errors.status.message}`}</p>}
-          </div> */}
+          </div>
 
           <div className="mt-3 d-flex justify-content-end  gap-2">
             <Button

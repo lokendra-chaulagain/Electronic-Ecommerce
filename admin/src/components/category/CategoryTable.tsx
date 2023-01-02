@@ -5,7 +5,7 @@ import { MdDelete } from "react-icons/md";
 import Image from "next/image";
 import { useDeleteCategoryMutation, useGetCategoriesQuery } from "../../features/api/apiSlice";
 
-export default function CategoryTable({ setIsUpdated }: any) {
+export default function CategoryTable() {
   const { data: categories, isLoading, isSuccess, isError, error } = useGetCategoriesQuery();
   console.log(categories);
   const [deleteCategory] = useDeleteCategoryMutation();

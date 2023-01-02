@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Grid, Dialog, Button } from "@mui/material";
-import axios from "axios";
 import { useForm } from "react-hook-form";
-import { MiscellaneousContext } from "../../../context/MiscellaneousContext";
+import { useAddNewColorMutation } from "../../features/api/apiSlice";
 
-export default function AddColorDialog({ setIsUpdated }: any) {
-  const { createSuccess, somethingWentWrong } = useContext(MiscellaneousContext);
+export default function AddColorDialog() {
+  const [addNewColor] = useAddNewColorMutation();
+
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -24,18 +24,9 @@ export default function AddColorDialog({ setIsUpdated }: any) {
   const handleAllField = watch();
 
   const createColor = async () => {
-    try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/color`, handleAllField);
-      
-      setIsUpdated(5);
-      handleClose();
-      createSuccess();
-      reset();
-      console.log("Form has been submitted");
-    } catch (error) {
-      console.log(error);
-      somethingWentWrong();
-    }
+    addNewColor(handleAllField);
+    reset();
+    handleClose();
   };
 
   return (
